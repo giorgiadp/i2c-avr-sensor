@@ -2,12 +2,11 @@
 #define funzioni
 
 #include <stdio.h>
+#include <avr_common/uart.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-//#include <util/twi.h>
-#include <avr_common/uart.h>
-
+#include <util/twi.h> //la uso solo per gli status code
 
 void init(void);
 uint8_t start(uint8_t address,uint8_t mode);

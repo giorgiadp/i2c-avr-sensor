@@ -29,10 +29,10 @@ BINS=main.c
 
 # put here the additional .o files you want to generate
 # one .c file for each .o should be present
-OBJS=avr_common/uart.o funzioni.c queue.c
+OBJS=avr_common/uart.o funzioni.c
 
 # put here the additional header files needed for compilation
-HEADERS=avr_common/uart.h funzioni.h queue.h
+HEADERS=avr_common/uart.h funzioni.h
 
 # the file below contains the actual rules
 
