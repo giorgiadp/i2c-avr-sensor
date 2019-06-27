@@ -5,9 +5,9 @@ from pygame.locals import *
 import serial
 import time
 
+#apro la seriale
 ser = serial.Serial('/dev/ttyACM0', 19200, timeout=1)
-
-				
+			
 ax = ay = az = 0.0
 yaw_mode = False
 
@@ -102,26 +102,21 @@ def draw():
 def read_data():
     global ax, ay, az
     ax = ay = az = 0.0
-    line_done = 0
-    # request data by sending a dot
-    #ser.write(b".") #* encode string to bytes
-    #while not line_done:
-    reading = ser.readline().split()
+
+    reading = ser.readline()
+    print(reading)
+    reading = reading.split()
     
     count = 0
     for i in reading:
 		count+=1
 		if i == '>':
 			x = reading[count:count+3]
-			print(x)
-			#time.sleep(0.1)
-			#line = ser.readline() 
-			#angles = line.split(b", ")
+			#print(x)
 			if len(x) == 3:    
 				ax = float(x[0])
 				ay = float(x[1])
 				az = float(x[2])
-				line_done = 1 
 
 def main():
     global yaw_mode
