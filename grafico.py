@@ -15,8 +15,9 @@ GyrXarray = []
 GyrYarray = []
 GyrZarray = []
 
+'''nella stessa finestra creo un grafico per i dati dell'accelerometro
+   e uno per il giroscopio'''
 def grafico():
-	
 
 	plt.subplot(2,1,1)
 	plt.title('Accelerometro')
@@ -24,9 +25,9 @@ def grafico():
 	plt.plot(AccXarray)
 	plt.plot(AccYarray)
 	plt.plot(AccZarray)
-	plt.plot(AccXarray, 'r' , label = 'AcX')
-	plt.plot(AccYarray, 'b' , label = 'AcY')
-	plt.plot(AccZarray, 'g' , label = 'AcZ')
+	plt.plot(AccXarray, 'r',label='AcX')
+	plt.plot(AccYarray, 'b',label='AcY')
+	plt.plot(AccZarray, 'g',label='AcZ')
 	plt.legend(loc='upper left')
 	
 	plt.subplot(2,1,2)
@@ -35,15 +36,18 @@ def grafico():
 	plt.plot(GyrXarray)
 	plt.plot(GyrYarray)
 	plt.plot(GyrZarray)
-	plt.plot(GyrXarray, 'r' , label = 'GyX')
-	plt.plot(GyrYarray, 'b' , label = 'GyY')
-	plt.plot(GyrZarray, 'g' , label = 'GyZ')
+	plt.plot(GyrXarray, 'r', label='GyX')
+	plt.plot(GyrYarray, 'b', label='GyY')
+	plt.plot(GyrZarray, 'g', label='GyZ')
 	plt.legend(loc='upper left')
 			
 def main():
     while True:
 		count = 0
-		array = arduino.readline ().split()
+		dati = arduino.readline() #leggo per righe quello che arriva in seriale
+		print(dati)
+		array = dati.split() #splitto gli elementi in una lista
+		
 		# in seriale mi faccio arrivare i valori AcX, AcY, AcZ, GyX, GyY, GyZ
 		# in sequenza preceduti dal marcatore ">"
 		# in questo modo all'inizio se ho la seriale sporca non mi blocco
@@ -51,7 +55,7 @@ def main():
 			if i == '>':
 				x = array[1:]
 				if(len(x) == 6):
-					print(x)
+					#print(x)
 				
 					AccX = float(x[0])
 					AccXarray.append(AccX)   
@@ -77,6 +81,6 @@ def main():
 						GyrYarray.pop(0)
 						GyrZarray.pop(0)					
 				
-					drawnow(grafico)
+					drawnow(grafico) #aggiorno i valori
 
 if __name__ == '__main__': main()

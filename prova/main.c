@@ -54,20 +54,18 @@ int main(void){
 	printf("Sveglia\n");
 	write_data(MPU, 0x6B, 0x00); //azzero tutto il registro
 	
-	/*
-	// CONFIG:
+	/* Calibrazioni (in realtà quelle di default nel sensore vanno bene)
 	// Low pass filter samples, 1khz sample rate
 	printf("Config\n");
 	write_data(MPU, 0x1A, 0x01);
 
-	// GYRO_CONFIG:
+	// Giroscopio
 	// 500 deg/s, FS_SEL=1
-	// This means 65.5 LSBs/deg/s
+	// 65.5 LSBs/deg/s
 	printf("Gyro config\n");
 	write_data(MPU, 0x1B, 0x08);
 
-	// CONFIG:
-	// set sample rate
+	// set rate
 	// sample rate FREQ = Gyro sample rate / (sample_div + 1)
 	// 1kHz / (div + 1) = FREQ  
 	// reg_value = 1khz/FREQ - 1
@@ -103,16 +101,15 @@ int main(void){
 		GyY = (GyY - gyrYoffs) / gSensitivity;
 		GyZ = (GyZ - gyrZoffs) / gSensitivity;
 		
-		// angles based on accelerometer
-		ay = atan2(AcX, sqrt( pow(AcY, 2) + pow(AcZ, 2))) * 180 / M_PI; //pitch (asse x)
-		ax = atan2(AcY, sqrt( pow(AcX, 2) + pow(AcZ, 2))) * 180 / M_PI; //roll (asse z)
+		// angoli accelerometro
+		ay = atan2(AcX, sqrt( pow(AcY, 2) + pow(AcZ, 2))) * 180 / M_PI; //pitch (rotazione attorno all'asse x)
+		ax = atan2(AcY, sqrt( pow(AcX, 2) + pow(AcZ, 2))) * 180 / M_PI; //roll (rotazione attorno all'asse z)
 		
-		// angles based on gyro (deg/s)
+		// angoli giroscopio (deg/s)
 		gx = gx + GyX / FREQ;
 		gy = gy - GyY / FREQ;
 		gz = gz + GyZ / FREQ;
 
-		// complementary filter
 		// tau = DT*(A)/(1-A)
 		// = 0.48sec
 		gx = gx * 0.96 + ax * 0.04;
@@ -139,7 +136,7 @@ int main(void){
 		printf("%d\n", jj);*/
 	
 		gz = 0;
-		_delay_ms(0); //no delay
+		_delay_ms(0); //no delay così aggiorno di continuo
 	}
 	
 }

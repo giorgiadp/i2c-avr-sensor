@@ -52,14 +52,12 @@ def draw():
 
     drawText((-2,-2, 2), osd_line)
 
-    # the way I'm holding the IMU board, X and Y axis are switched 
-    # with respect to the OpenGL coordinate system
-    if yaw_mode:                             # experimental
-        glRotatef(az, 0.0, 1.0, 0.0)  # Yaw,   rotate around y-axis
+    if yaw_mode:
+        glRotatef(az, 0.0, 1.0, 0.0)  # Yaw (rotazione attorno all'asse y)
     else:
         glRotatef(0.0, 0.0, 1.0, 0.0)
-    glRotatef(ay ,1.0,0.0,0.0)        # Pitch, rotate around x-axis
-    glRotatef(-1*ax ,0.0,0.0,1.0)     # Roll,  rotate around z-axis
+    glRotatef(ay ,1.0,0.0,0.0)        # Pitch (rotazione attorno all'asse x)
+    glRotatef(-1*ax ,0.0,0.0,1.0)     # Roll (rotazione attorno all'asse z)
 
     glBegin(GL_QUADS)	
     glColor3f(0.0,1.0,0.0)
@@ -133,7 +131,7 @@ def main():
     while 1:
         event = pygame.event.poll()
         if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
-            pygame.quit()  #* quit pygame properly
+            pygame.quit()
             break       
         if event.type == KEYDOWN and event.key == K_z:
             yaw_mode = not yaw_mode
